@@ -27,7 +27,11 @@ export default function App()
     
     function reroll()
     {
-        func(prev=>prev.map(dice=>dice.isHeld===false?{...dice,value:Math.ceil(Math.random()*6)}:dice))
+        if(gameWon===false)(
+        func(prev=>prev.map(dice=>dice.isHeld===false?{...dice,value:Math.ceil(Math.random()*6)}:dice)))
+        else{
+            func(generateAllNewDice())
+        }
     }
 
     function hold(id)
@@ -38,7 +42,7 @@ export default function App()
                                     hold={hold} id={diceObejct.id}/>)
     return(
         <main>
-             {gameWon && <Confetti width={width} height={height} />}
+             {gameWon && <Confetti width={window.innerWidth} height={window.innerHeight} />}
             <h1 className="title">Tenzies</h1>
             <div className="dice">
                 {diceElements}
